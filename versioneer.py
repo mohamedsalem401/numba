@@ -849,13 +849,13 @@ def render_pep440(pieces):
     get a tagged build and then dirty it, you'll get TAG+0.gHEX.dirty
 
     Exceptions:
-    1: no tags. git_describe was just HEX. 0+untagged.DISTANCE.gHEX[.dirty]
+    1: no tags. git_describe was just HEX. 0-untagged_DISTANCE_gHEX[.dirty]
     """
     if pieces["closest-tag"]:
         rendered = pieces["closest-tag"]
         if pieces["distance"] or pieces["dirty"]:
-            rendered += plus_or_dot(pieces)
-            rendered += "%%d.g%%s" %% (pieces["distance"], pieces["short"])
+            rendered += "-"
+            rendered += "%%d_g%%s" %% (pieces["distance"], pieces["short"])
             if pieces["dirty"]:
                 rendered += ".dirty"
     else:
@@ -1479,13 +1479,13 @@ def render_pep440(pieces):
     get a tagged build and then dirty it, you'll get TAG+0.gHEX.dirty
 
     Exceptions:
-    1: no tags. git_describe was just HEX. 0+untagged.DISTANCE.gHEX[.dirty]
+    1: no tags. git_describe was just HEX. 0-untagged_DISTANCE_gHEX[.dirty]
     """
     if pieces["closest-tag"]:
         rendered = pieces["closest-tag"]
         if pieces["distance"] or pieces["dirty"]:
-            rendered += plus_or_dot(pieces)
-            rendered += "%d.g%s" % (pieces["distance"], pieces["short"])
+            rendered += "-"
+            rendered += "%d_g%s" % (pieces["distance"], pieces["short"])
             if pieces["dirty"]:
                 rendered += ".dirty"
     else:
