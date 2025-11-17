@@ -853,17 +853,10 @@ def render_pep440(pieces):
     """
     if pieces["closest-tag"]:
         rendered = pieces["closest-tag"]
-        if pieces["distance"] or pieces["dirty"]:
-            rendered += "-"
-            rendered += "%%d_g%%s" %% (pieces["distance"], pieces["short"])
-            if pieces["dirty"]:
-                rendered += ".dirty"
+        # Don't add distance/hash to version string
     else:
-        # exception #1
-        rendered = "0+untagged.%%d.g%%s" %% (pieces["distance"],
-                                          pieces["short"])
-        if pieces["dirty"]:
-            rendered += ".dirty"
+        # exception: no tags
+        rendered = "0+untagged"
     return rendered
 
 
@@ -1483,17 +1476,10 @@ def render_pep440(pieces):
     """
     if pieces["closest-tag"]:
         rendered = pieces["closest-tag"]
-        if pieces["distance"] or pieces["dirty"]:
-            rendered += "-"
-            rendered += "%d_g%s" % (pieces["distance"], pieces["short"])
-            if pieces["dirty"]:
-                rendered += ".dirty"
+        # Don't add distance/hash to version string
     else:
-        # exception #1
-        rendered = "0+untagged.%d.g%s" % (pieces["distance"],
-                                          pieces["short"])
-        if pieces["dirty"]:
-            rendered += ".dirty"
+        # exception: no tags
+        rendered = "0+untagged"
     return rendered
 
 

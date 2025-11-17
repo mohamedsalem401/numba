@@ -116,7 +116,17 @@ jobs:
       - name: Build wheel
         env:
           MACOSX_DEPLOYMENT_TARGET: "11.0"
-        run: arch -arm64 python -m build --wheel --no-isolation
+        run: |
+          DESCRIBE=$(git describe --tags)
+          if [[ "$DESCRIBE" == *-* ]]; then
+            BUILD_TAG=$(echo "$DESCRIBE" | cut -d- -f2- | tr '-' '_')
+            echo "Building with build tag: $BUILD_TAG"
+            arch -arm64 python -m build --wheel --no-isolation \
+              --config-setting=--build-option=--build-number=$BUILD_TAG
+          else
+            echo "Building at exact tag (no build tag)"
+            arch -arm64 python -m build --wheel --no-isolation
+          fi
 
       - name: Fix macOS wheel library paths
         run: |
