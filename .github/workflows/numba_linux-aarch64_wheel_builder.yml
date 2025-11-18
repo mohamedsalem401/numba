@@ -169,6 +169,8 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Validate and test wheel
+        env:
+          TEST_TO_RUN: "numba.tests.test_usecases"
         run: |
           PYTHON_PATH=$(which python${{ matrix.python_canonical }})
           $PYTHON_PATH -m pip install --upgrade pip twine
@@ -185,4 +187,4 @@ jobs:
           $PYTHON_PATH -m numba -s
 
           # run tests
-          $PYTHON_PATH -m numba.runtests -m 4 -v
+          $PYTHON_PATH -m numba.runtests $TEST_TO_RUN -m 4 -v

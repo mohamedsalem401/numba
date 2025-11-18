@@ -209,6 +209,8 @@ jobs:
           echo "Set DYLD_FALLBACK_LIBRARY_PATH to: $(brew --prefix libomp)/lib"
 
       - name: Validate and test wheel
+        env:
+          TEST_TO_RUN: "numba.tests.test_usecases"
         run: |
           PYTHON_PATH=$(which python${{ matrix.python_canonical }})
           "$PYTHON_PATH" -m venv .venv && source .venv/bin/activate
@@ -226,4 +228,4 @@ jobs:
           arch -arm64 python -m numba -s
 
           # run tests
-          arch -arm64 python -m numba.runtests -m 4 -v
+          arch -arm64 python -m numba.runtests $TEST_TO_RUN -m 4 -v

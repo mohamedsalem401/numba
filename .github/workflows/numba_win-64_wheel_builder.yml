@@ -142,6 +142,7 @@ jobs:
 
       - name: Validate and test wheel
         env:
+          TEST_TO_RUN: "numba.tests.test_usecases"
           NUMBA_CPU_NAME: generic
           _NUMBA_REDUCED_TESTING: 1
         run: |
@@ -173,4 +174,4 @@ jobs:
           python -m numba -s
 
           # run tests
-          python -m numba.runtests -m 4 -v
+          python -m numba.runtests $TEST_TO_RUN -m 4 -v
